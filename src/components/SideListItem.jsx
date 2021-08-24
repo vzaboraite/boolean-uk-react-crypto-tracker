@@ -1,17 +1,9 @@
-export default function SideListItem({ isSelectedCripto, selectCripto, item }) {
-  // console.log("Item inside SideListItem: ", item)
-  const { id, name } = item
-
-  // const id = item.id
-  // const name = item.name
+export default function SideListItem({ name, isSelected, onClick }) {
   return (
     <li>
-      <button
-        className={isSelectedCripto(id) ? 'selected' : ''}
-        onClick={() => selectCripto(id)}
-      >
+      <button className={isSelected ? "selected" : ""} onClick={onClick}>
         {name}
       </button>
     </li>
-  )
+  );
 }

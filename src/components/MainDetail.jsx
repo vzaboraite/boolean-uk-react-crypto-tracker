@@ -16,9 +16,9 @@ function convertToSeconds(dateValue) {
     : dateValue;
 }
 
-export default function MainDetail({selectedCoin}) {
-  console.log("Inside MainDetail: ", selectedCoin)
-  const {name, symbol, current_price} = selectedCoin
+export default function MainDetail({ selectedCoin }) {
+  console.log("Inside MainDetail: ", selectedCoin);
+  const { name, symbol, current_price } = selectedCoin;
   return (
     <>
       <section className="main-detail__central">
@@ -27,7 +27,10 @@ export default function MainDetail({selectedCoin}) {
         </div>
         <div className="main-detail__name">
           <h2>{name}</h2>
-          <p><span className="small">a.k.a </span>{symbol}</p>
+          <p>
+            <span className="small">a.k.a </span>
+            {symbol}
+          </p>
         </div>
         <div className="main-detail__price">
           <p>£{current_price}</p>
