@@ -16,15 +16,23 @@ function convertToSeconds(dateValue) {
     : dateValue;
 }
 
-export default function MainDetail() {
+export default function MainDetail({selectedCoin}) {
+  console.log("Inside MainDetail: ", selectedCoin)
+  const {name, symbol, current_price} = selectedCoin
   return (
     <>
       <section className="main-detail__central">
         <div className="main-detail__update">
           {/* This part is for the challenge */}
         </div>
-        <div className="main-detail__name"></div>
-        <div className="main-detail__price"></div>
+        <div className="main-detail__name">
+          <h2>{name}</h2>
+          <p><span className="small">a.k.a </span>{symbol}</p>
+        </div>
+        <div className="main-detail__price">
+          <p>£{current_price}</p>
+          <p>Updated 1191 seconds ago</p>
+        </div>
       </section>
     </>
   );

@@ -7,23 +7,25 @@ import { CRIPTO_LIST } from "./constants";
 
 function App() {
   // This piece of state keeps the id from the selected coin to be displayed in the MainDetail component
-  const [selectedCripto, setSelectedCripto] = useState(null);
+  const [selectedCoinId, setSelectedCoinId] = useState(null);
   // state to store data from fetch
-  const [cripto, setCrypto] = useState([])
+  const [coins, setCoins] = useState([])
+  // foundCoin{} stores selected coin's data
+  const selectedCoin = coins.find(coin => selectedCoinId === coin.id)
 
-  console.log("cripto: ", cripto)
-  console.log("selectedCripto: ", selectedCripto)
+  // console.log("coins: ", coins)
+  // console.log("selectedCripto: ", selectedCryptoId)
 
   useEffect(()=>{
-    fetch(`${CRIPTO_LIST}`)
+    fetch(CRIPTO_LIST)
       .then(res => res.json())
-      .then(data => setCrypto(data))
+      .then(data => setCoins(data))
     }, [])
 
   // This function gives you whether a coin has been selected or not
   // You will need this for the SideListItem component
   function isSelectedCripto(id) {
-    return selectedCripto === id;
+    return selectedCoinId === id;
   }
 
   return (
@@ -32,15 +34,15 @@ function App() {
       <aside className="side-list">
         {/* This is where the side list goes */}
         <ul>
-          {cripto.map((item, index)=>{ 
+          {coins.map((coin, index)=>{ 
             // console.log("Item inside cripto map: ", item);
-          return(<SideListItem key={index} item={item} isSelectedCripto={isSelectedCripto} />)
+          return(<SideListItem key={index} item={coin} isSelectedCripto={isSelectedCripto} selectCripto={setSelectedCoinId} />)
           })}
         </ul>
       </aside>
       <main className="main-detail">
-        {selectedCripto
-          ? "Create the main detail component here"
+        {selectedCoin
+          ? <MainDetail selectedCoin={selectedCoin}/>
           : "Select a coin bro!"}
         {/* News feed component needs to go here */}
       </main>
