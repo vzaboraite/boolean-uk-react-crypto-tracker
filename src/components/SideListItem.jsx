@@ -1,4 +1,5 @@
 export default function SideListItem({ isSelectedCripto, selectCripto, item }) {
+  // console.log("Item inside SideListItem: ", item)
   const { id, name } = item
 
   // const id = item.id
