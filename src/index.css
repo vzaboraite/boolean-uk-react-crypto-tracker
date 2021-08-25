@@ -119,6 +119,7 @@ button:hover {
   height: 175px;
   line-height: 1.5;
   font-size: 1.1rem;
+  overflow-y: scroll;
   scroll-snap-align: center;
   background-color: whitesmoke;
 }
