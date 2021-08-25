@@ -4,7 +4,7 @@ import MainDetail from "./components/MainDetail";
 import SideListItem from "./components/SideListItem";
 import NewsCard from "./components/NewsCard";
 
-import { CRIPTO_LIST, STATUS_UPDATES } from "./constants";
+import { CRIPTO_LIST } from "./constants";
 
 function App() {
   // This piece of state keeps the id from the selected coin to be displayed in the MainDetail component
@@ -18,7 +18,7 @@ function App() {
   const selectedCoin = coins.find((coin) => selectedCoinId === coin.id);
 
   // console.log("coins: ", coins)
-  console.log("selectedCoinId: ", selectedCoinId);
+  // console.log("selectedCoinId: ", selectedCoinId);
 
   useEffect(() => {
     fetch(CRIPTO_LIST)
@@ -33,7 +33,7 @@ function App() {
       )
         .then((res) => res.json())
         .then((newsData) => {
-          console.log("inside fetch status_updates: ", newsData.status_updates);
+          // console.log("inside fetch status_updates: ", newsData.status_updates);
           setNewsFeed(newsData.status_updates);
         });
     }
@@ -73,7 +73,7 @@ function App() {
         {newsFeed.length > 0 && (
           <ul className="newsfeed">
             {newsFeed.map((newsItem, index) => {
-              console.log("Inside newsFeed map: ", newsItem);
+              // console.log("Inside newsFeed map: ", newsItem);
               return <NewsCard key={index} newsItem={newsItem} />;
             })}
           </ul>
