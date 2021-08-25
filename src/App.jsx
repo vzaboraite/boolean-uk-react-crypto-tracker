@@ -12,13 +12,13 @@ function App() {
   // state to store coins data from fetch
   const [coins, setCoins] = useState([]);
   // state to store news-feed from fetch
-  const [newsfeed, setNewsFeed] = useState([]);
+  const [newsFeed, setNewsFeed] = useState([]);
 
   // selectedCoin variable stores selected coin object
   const selectedCoin = coins.find((coin) => selectedCoinId === coin.id);
 
   // console.log("coins: ", coins)
-  // console.log("selectedCripto: ", selectedCryptoId)
+  console.log("selectedCoinId: ", selectedCoinId);
 
   useEffect(() => {
     fetch(CRIPTO_LIST)
@@ -27,11 +27,17 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch(STATUS_UPDATES)
-      .then((res) => res.json())
-      .then((newsData) => setNewsFeed(newsData.status_updates));
-  }, []);
-  console.log("news: ", newsfeed);
+    if (selectedCoinId) {
+      fetch(
+        `https://api.coingecko.com/api/v3/coins/${selectedCoinId}/status_updates`
+      )
+        .then((res) => res.json())
+        .then((newsData) => {
+          console.log("inside fetch status_updates: ", newsData.status_updates);
+          setNewsFeed(newsData.status_updates);
+        });
+    }
+  }, [selectedCoinId]);
 
   // This function gives you whether a coin has been selected or not
   // You will need this for the SideListItem component
@@ -64,12 +70,14 @@ function App() {
         ) : (
           "Select a coin bro!"
         )}
-        {/* News feed component needs to go here */}
-        <ul className="newsfeed">
-          {newsfeed.map((newsItem, index) => (
-            <NewsCard key={index} newsItem={newsItem} />
-          ))}
-        </ul>
+        {newsFeed.length > 0 && (
+          <ul className="newsfeed">
+            {newsFeed.map((newsItem, index) => {
+              console.log("Inside newsFeed map: ", newsItem);
+              return <NewsCard key={index} newsItem={newsItem} />;
+            })}
+          </ul>
+        )}
       </main>
     </>
   );
